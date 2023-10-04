@@ -4,8 +4,8 @@ import { Stack, useRouter } from "expo-router";
 
 import { COLORS, icons, images, SIZES } from "../constants";
 import {
-  Nearbycars,
-  Popularcars,
+  Nearbyjobs,
+  Popularjobs,
   ScreenHeaderBtn,
   Welcome,
 } from "../components";
@@ -14,11 +14,11 @@ import {
 
 const Home = () => {
     const router = useRouter();
-    
+    const [searchTerm, setSearchTerm] = useState("");
     return (
         //<Text>Kevin</Text>
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-            <Stack.Screen options={{ headerStyle: { background: COLORS.lightWhite },
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#ADD8E6'}}>
+            <Stack.Screen options={{ headerStyle: { background: COLORS.lightWhite},
                 headerShadowVisible: false,
                 headerLeft: () => (
                     <ScreenHeaderBtn iconUrl={icons.menu} dimension ="60%"/>
@@ -34,9 +34,17 @@ const Home = () => {
                     flex: 1,
                     padding: SIZES.medium }}
                 >
-                <Welcome/>
-                <Popularcars/>
-                <Nearbycars/>
+                <Welcome
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    handleClick={() => {
+                        if(searchTerm) {
+                            router.push(`/search/${searchTerm}`)
+                        }
+                    }}
+                />
+                <Popularjobs/>
+                <Nearbyjobs/>
                 </View>
             </ScrollView>
         </SafeAreaView>
